@@ -1,84 +1,1155 @@
-## 🏪 Ideal Use Cases
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#2a2a2a;font-family:'Open Sans',sans-serif}
 
-- Multi-unit restaurant operators  
-- Ghost kitchens / cloud kitchens  
-- High-volume seafood & grill concepts  
-- Compliance-focused hospitality brands  
-- Restaurant consultants & operations teams  
+/* SCREEN NAV */
+.screen-only{display:block}
+.nav{background:#111;padding:1rem 2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;border-bottom:2px solid #c9a84c;position:sticky;top:0;z-index:100}
+.nav-title{font-family:'Oswald',sans-serif;color:#c9a84c;font-size:1rem;letter-spacing:2px;text-transform:uppercase;margin-right:auto}
+.nav-btn{background:#1a1a1a;border:1px solid #c9a84c55;color:#c9a84c;font-family:'Oswald',sans-serif;font-size:.7rem;padding:6px 14px;letter-spacing:1px;cursor:pointer;border-radius:4px;text-transform:uppercase;transition:background .2s}
+.nav-btn:hover,.nav-btn.active{background:#c9a84c;color:#111}
+.print-btn{background:#c9a84c;color:#111;font-weight:700;border:none;font-family:'Oswald',sans-serif;font-size:.75rem;padding:8px 20px;letter-spacing:2px;cursor:pointer;border-radius:4px;text-transform:uppercase}
+.print-btn:hover{background:#e0b84e}
 
-## 💡 Business Impact
+.tabs-container{padding:1.5rem 2rem;display:flex;flex-wrap:wrap;gap:.5rem;background:#1a1a1a;border-bottom:1px solid #333}
+.tab{background:#111;border:1px solid #333;color:#888;font-family:'Oswald',sans-serif;font-size:.65rem;padding:5px 12px;letter-spacing:1px;cursor:pointer;border-radius:20px;text-transform:uppercase;transition:all .2s}
+.tab:hover,.tab.active{background:#c9a84c22;border-color:#c9a84c;color:#c9a84c}
 
-This system functions as an operational control layer for your kitchen:
+.viewer{padding:2rem;display:flex;justify-content:center}
+.page-shadow{box-shadow:0 8px 40px #0008;margin-bottom:2rem}
 
-- 🔻 Reduce health code violations  
-- 📈 Improve staff accountability  
-- ⚡ Increase operational efficiency  
-- 🧩 Standardize training across locations  
-- 🛡 Protect brand + liability exposure  
+/* PRINT PAGE */
+.page{
+  width:8.5in;min-height:11in;
+  background:#fff;
+  font-family:'Open Sans',sans-serif;
+  position:relative;
+  page-break-after:always;
+  display:none;
+}
+.page.visible{display:block}
 
----
+/* BRAND HEADER */
+.brand-header{
+  background:#1a1a1a;
+  padding:.35in .4in .25in;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.brand-header-left{display:flex;align-items:center;gap:.2in}
+.brand-logo-circle{width:.7in;height:.7in;border-radius:50%;border:2px solid #c9a84c;display:flex;align-items:center;justify-content:center;flex-direction:column;flex-shrink:0}
+.brand-logo-circle svg{width:.35in;height:.35in}
+.brand-text h1{font-family:'Oswald',sans-serif;font-size:18pt;color:#c9a84c;letter-spacing:3px;text-transform:uppercase;line-height:1}
+.brand-text p{font-size:7pt;color:#888;letter-spacing:2px;text-transform:uppercase;margin-top:2pt}
+.brand-header-right{text-align:right}
+.brand-header-right p{font-size:7pt;color:#666;line-height:1.6}
+.brand-header-right span{color:#c9a84c}
 
-## 🛠 Tech Stack
+/* SIGN CONTENT AREA */
+.sign-content{padding:.3in .4in}
+.sign-category{font-size:7pt;letter-spacing:3px;color:#c9a84c;text-transform:uppercase;margin-bottom:.1in;font-family:'Oswald',sans-serif}
+.sign-main-title{font-family:'Oswald',sans-serif;font-size:32pt;font-weight:700;color:#1a1a1a;text-transform:uppercase;line-height:1;margin-bottom:.15in}
+.sign-main-title .gold{color:#c9a84c}
+.sign-main-title.large{font-size:40pt}
+.sign-subtitle{font-size:10pt;color:#555;line-height:1.5;margin-bottom:.15in}
+.gold-rule{border:none;border-top:2.5px solid #c9a84c;margin:.15in 0}
+.thin-rule{border:none;border-top:.5px solid #ddd;margin:.12in 0}
 
-- HTML5  
-- CSS3  
-- Vanilla JavaScript  
-- Zero dependencies  
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:.1in}
+.step{display:flex;align-items:flex-start;gap:.12in}
+.step-num{width:.28in;height:.28in;border-radius:50%;background:#1a1a1a;color:#c9a84c;font-family:'Oswald',sans-serif;font-weight:700;font-size:10pt;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1pt}
+.step-text{font-size:10pt;color:#222;line-height:1.4}
+.step-text strong{color:#1a1a1a}
 
----
+/* ALERT BOXES */
+.alert-gold{background:#fffbf0;border-left:4pt solid #c9a84c;padding:.1in .14in;font-size:9pt;color:#5a4500;font-weight:600;margin:.12in 0}
+.alert-red{background:#fff5f5;border-left:4pt solid #cc2222;padding:.1in .14in;font-size:9pt;color:#8b0000;font-weight:600;margin:.12in 0}
+.alert-blue{background:#f0f6ff;border-left:4pt solid #2255cc;padding:.1in .14in;font-size:9pt;color:#0a2a6e;margin:.12in 0}
 
-## 🔐 Compliance Alignment
+/* PILLS */
+.pills{display:flex;flex-wrap:wrap;gap:.06in;margin:.08in 0}
+.pill{background:#f5f5f5;border:1px solid #ddd;color:#444;font-size:7.5pt;padding:2pt 8pt;border-radius:20pt}
+.pill-gold{background:#fffbf0;border:1px solid #c9a84c88;color:#7a5500;font-family:'Oswald',sans-serif;font-size:8pt;padding:3pt 10pt;border-radius:4pt;letter-spacing:1px}
 
-This pack is aligned with:
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:9pt;margin:.1in 0}
+.data-table th{background:#1a1a1a;color:#c9a84c;font-family:'Oswald',sans-serif;font-size:8pt;letter-spacing:1px;padding:6pt 8pt;text-align:left}
+.data-table td{padding:6pt 8pt;border-bottom:1px solid #eee;color:#333}
+.data-table tr:nth-child(even) td{background:#fafafa}
+.data-table td.gold{color:#c9a84c;font-weight:700;font-family:'Oswald',sans-serif}
+.data-table td.red{color:#cc2222;font-weight:700}
 
-- California Retail Food Code (CalCode)  
-- Cal/OSHA workplace safety requirements  
-- Food handler certification standards  
+/* FORM FIELDS */
+.form-row{display:flex;align-items:flex-end;gap:.15in;margin:.08in 0}
+.form-field{flex:1}
+.form-label{font-size:7.5pt;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:3pt}
+.form-line{border:none;border-bottom:1px solid #ccc;height:18pt;width:100%;display:block}
+.form-box{border:1px solid #ccc;height:.35in;width:100%;display:block;border-radius:3pt}
 
----
+/* 2-COL LAYOUT */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.25in}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.15in}
 
-## 🔄 Customization
+/* CHECKLIST */
+.check-item{display:flex;align-items:flex-start;gap:.1in;margin:.07in 0}
+.check-box{width:.18in;height:.18in;border:1.5px solid #c9a84c;border-radius:3pt;flex-shrink:0;margin-top:1pt}
+.check-text{font-size:9pt;color:#333;line-height:1.4}
+.check-section{font-family:'Oswald',sans-serif;font-size:10pt;color:#1a1a1a;letter-spacing:1px;text-transform:uppercase;margin:.15in 0 .07in;border-bottom:1px solid #e0c060;padding-bottom:3pt}
 
-You can easily:
+/* BRAND FOOTER */
+.brand-footer{
+  position:absolute;bottom:0;left:0;right:0;
+  background:#1a1a1a;padding:.12in .4in;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.brand-footer .left{font-family:'Oswald',sans-serif;font-size:8pt;color:#c9a84c;letter-spacing:2px}
+.brand-footer .mid{font-size:7pt;color:#666;text-align:center}
+.brand-footer .right{font-size:7pt;color:#666;text-align:right}
 
-- Replace branding (logo, name, colors)  
-- Modify text for different concepts  
-- Add new templates or SOPs  
-- White-label for multiple clients or locations  
+/* BILINGUAL */
+.bilingual{display:grid;grid-template-columns:1fr 1fr;gap:.2in}
+.lang-col h3{font-family:'Oswald',sans-serif;font-size:9pt;letter-spacing:2px;text-transform:uppercase;color:#c9a84c;border-bottom:1px solid #c9a84c55;padding-bottom:3pt;margin-bottom:.1in}
 
----
+/* EMERGENCY */
+.emergency-grid{display:grid;grid-template-columns:1fr 1fr;gap:.15in;margin:.1in 0}
+.emergency-card{border:1.5px solid #ddd;border-radius:6pt;padding:.1in .12in}
+.emergency-card.red{border-color:#cc2222;background:#fff8f8}
+.emergency-card h4{font-family:'Oswald',sans-serif;font-size:10pt;color:#1a1a1a;letter-spacing:1px;margin-bottom:4pt}
+.emergency-card.red h4{color:#cc2222}
+.emergency-card p{font-size:8.5pt;color:#444;line-height:1.5}
+.emergency-card .phone{font-family:'Oswald',sans-serif;font-size:14pt;color:#cc2222;font-weight:700}
 
-## 📈 Monetization Potential
+/* DRESS CODE ICONS ROW */
+.dress-row{display:flex;gap:.15in;margin:.1in 0;flex-wrap:wrap}
+.dress-item{flex:1;min-width:1in;border:1px solid #ddd;border-radius:6pt;padding:.1in;text-align:center}
+.dress-item .icon{font-size:20pt;display:block;margin-bottom:4pt}
+.dress-item p{font-size:7.5pt;color:#444;line-height:1.3}
+.dress-item.req .icon{color:#1a7a2a}
+.dress-item.no .icon{color:#cc2222}
 
-This asset can be leveraged as:
+/* LARGE BILINGUAL */
+.big-bilingual .en{font-family:'Oswald',sans-serif;font-size:28pt;font-weight:700;color:#1a1a1a;text-transform:uppercase;line-height:1}
+.big-bilingual .es{font-family:'Oswald',sans-serif;font-size:22pt;font-weight:400;color:#c9a84c;text-transform:uppercase;line-height:1;margin-top:.05in}
 
-- A white-label SaaS product  
-- A restaurant onboarding toolkit  
-- A compliance subscription service  
-- A lead magnet for restaurant consulting  
-- A GoHighLevel snapshot add-on  
+@media print{
+  .screen-only{display:none!important}
+  body{background:#fff}
+  .viewer{padding:0}
+  .page{display:block!important;box-shadow:none;page-break-after:always}
+  .page-shadow{box-shadow:none}
+}
+</style>
+</head>
+<body>
 
----
+<!-- SCREEN NAV -->
+<div class="screen-only">
+<div class="nav">
+  <span class="nav-title">🌴 Los Corchos Print Pack</span>
+  <button class="nav-btn" onclick="showGroup('signs')">Kitchen Signs</button>
+  <button class="nav-btn" onclick="showGroup('spanish')">Spanish Signs</button>
+  <button class="nav-btn" onclick="showGroup('legal')">CA Legal Signs</button>
+  <button class="nav-btn" onclick="showGroup('templates')">Templates</button>
+  <button class="nav-btn" onclick="showGroup('bonus')">Bonus</button>
+  <button class="print-btn" onclick="window.print()">🖨 Print All</button>
+</div>
+<div class="tabs-container" id="tabs"></div>
+</div>
 
-## 🔮 Future Roadmap
+<div class="viewer" id="viewer">
 
-- QR-based digital SOP access  
-- Editable CMS version  
-- Multi-location brand switching  
-- Staff acknowledgment tracking  
-- LMS / training integrations  
+<!-- ============================================================
+     SIGN 1 — HANDWASHING
+     ============================================================ -->
+<div class="page-shadow"><div class="page visible" id="p-s1" data-group="signs" data-label="Handwashing">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>POST AT:</span> All Handwashing Sinks</p><p>Sign 1 of 12 · Kitchen Safety Series</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Food Safety — Handwashing Protocol</div>
+    <div class="sign-main-title">Wash Your <span class="gold">Hands</span></div>
+    <div class="alert-gold">California Retail Food Code §113953 requires handwashing before food handling and after any contamination event.</div>
+    <div class="gold-rule"></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>WET</strong> hands and wrists with warm running water (100°F+)</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>APPLY</strong> soap — scrub vigorously for at least <strong>20 seconds</strong>: palms · backs of hands · between fingers · under nails · wrists</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>RINSE</strong> thoroughly under clean running water</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>DRY</strong> with a single-use paper towel</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text"><strong>USE</strong> the paper towel to turn off the faucet — do not touch with bare hands</div></div>
+    </div>
+    <div class="gold-rule"></div>
+    <p style="font-size:8.5pt;color:#666;margin-bottom:.08in;text-transform:uppercase;letter-spacing:1px">Wash hands at these times:</p>
+    <div class="pills">
+      <span class="pill">On arrival</span><span class="pill">After restroom</span><span class="pill">After raw seafood</span><span class="pill">After touching face/hair</span>
+      <span class="pill">After removing gloves</span><span class="pill">After handling trash</span><span class="pill">After breaks</span><span class="pill">After sneezing/coughing</span><span class="pill">After handling money</span>
+    </div>
+    <div class="alert-red" style="margin-top:.15in">Failure to wash hands properly is a critical violation under California Health Code and may result in permit suspension.</div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
 
----
+<!-- ============================================================
+     SIGN 2 — GLOVES REQUIRED
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-s2" data-group="signs" data-label="Gloves Required">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>POST AT:</span> Cold Bar &amp; All Prep Stations</p><p>Sign 2 of 12 · Kitchen Safety Series</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Food Safety — Glove Protocol</div>
+    <div class="sign-main-title">Gloves <span class="gold">Required</span></div>
+    <div class="alert-gold">California Retail Food Code §113961 — All employees handling ready-to-eat food must wear single-use gloves.</div>
+    <div class="gold-rule"></div>
+    <div class="two-col">
+      <div>
+        <p style="font-size:9pt;font-weight:700;color:#1a1a1a;margin-bottom:.08in;text-transform:uppercase;letter-spacing:1px">Change Gloves When:</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">→</div><div class="step-text">Between different tasks or food types</div></div>
+          <div class="step"><div class="step-num">→</div><div class="step-text">Every <strong>4 hours</strong> during continuous use</div></div>
+          <div class="step"><div class="step-num">→</div><div class="step-text">After touching face, hair, or body</div></div>
+          <div class="step"><div class="step-num">→</div><div class="step-text">After handling raw product</div></div>
+          <div class="step"><div class="step-num">→</div><div class="step-text">If torn, punctured, or contaminated</div></div>
+          <div class="step"><div class="step-num">→</div><div class="step-text">After using the restroom</div></div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:9pt;font-weight:700;color:#1a1a1a;margin-bottom:.08in;text-transform:uppercase;letter-spacing:1px">Proper Glove Use:</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Wash hands</strong> before putting on gloves — always</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Select the <strong>correct size</strong> — too loose = contamination risk</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Do not blow into gloves or roll them on surfaces</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-text">Remove by peeling from wrist — avoid touching the outside</div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-text">Dispose immediately — gloves are single-use only</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="alert-red">⚠ Gloves do NOT replace handwashing. Wash hands before every new pair.</div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
 
-## 👤 Author / Brand
+<!-- ============================================================
+     SIGN 3 — FOOD SAFETY TEMPS
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-s3" data-group="signs" data-label="Temperatures">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>POST AT:</span> Kitchen &amp; Prep Area</p><p>Sign 3 of 12 · Kitchen Safety Series</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Food Safety — Temperature Control</div>
+    <div class="sign-main-title">Food Safety <span class="gold">Temperatures</span></div>
+    <div class="alert-red">⚠ DANGER ZONE: 41°F – 135°F — Bacteria doubles every 20 minutes in this range.</div>
+    <div class="gold-rule"></div>
+    <table class="data-table">
+      <tr><th>Food / Equipment</th><th>Required Temperature</th><th>CalCode Reference</th></tr>
+      <tr><td><strong>Cold food storage</strong></td><td class="gold">41°F or below</td><td style="font-size:8pt;color:#888">§114002</td></tr>
+      <tr><td><strong>Hot food holding</strong></td><td class="gold">135°F or above</td><td style="font-size:8pt;color:#888">§114002</td></tr>
+      <tr><td><strong>Raw seafood &amp; fish</strong></td><td class="gold">38°F or below</td><td style="font-size:8pt;color:#888">§114004</td></tr>
+      <tr><td><strong>Cooked seafood (hot hold)</strong></td><td class="gold">135°F minimum</td><td style="font-size:8pt;color:#888">§114002</td></tr>
+      <tr><td><strong>Whole fish — cooked</strong></td><td class="gold">145°F internal</td><td style="font-size:8pt;color:#888">§114004</td></tr>
+      <tr><td><strong>Shrimp / shellfish — cooked</strong></td><td class="gold">145°F internal</td><td style="font-size:8pt;color:#888">§114004</td></tr>
+      <tr><td><strong>Fry oil</strong></td><td class="gold">350°F – 375°F</td><td style="font-size:8pt;color:#888">Best practice</td></tr>
+      <tr><td><strong>Handwashing water</strong></td><td class="gold">100°F minimum</td><td style="font-size:8pt;color:#888">§113953</td></tr>
+    </table>
+    <div class="gold-rule"></div>
+    <div class="alert-red">Discard ALL food held in the Danger Zone for more than 4 hours. No exceptions. Log discards immediately.</div>
+    <div class="alert-blue" style="margin-top:.1in">Check and log all temperatures at opening and every 4 hours during service. Use a calibrated probe thermometer.</div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
 
-**La Grub Plug**  
-Restaurant Systems · Automation · Growth Infrastructure  
+<!-- ============================================================
+     SIGN 4 — NO APRONS IN RESTROOM
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-s4" data-group="signs" data-label="No Aprons">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>POST AT:</span> Restroom Entrance</p><p>Sign 4 of 12 · Kitchen Safety Series</p></div>
+  </div>
+  <div class="sign-content" style="padding-top:.5in">
+    <div class="sign-category">Uniform Policy</div>
+    <div class="sign-main-title large">No Aprons<br/>in the <span class="gold">Restroom</span></div>
+    <div class="gold-rule"></div>
+    <div style="font-size:13pt;color:#333;line-height:1.8;margin:.2in 0">
+      <p>Remove your apron <strong>before entering.</strong></p>
+      <p style="margin-top:.1in">Hang it on the hook provided <strong>outside this door.</strong></p>
+    </div>
+    <div class="alert-gold" style="font-size:10pt;padding:.14in .18in">Required by California Retail Food Code §113969 and Mariscos Los Corchos policy.</div>
+    <div class="alert-red" style="margin-top:.15in;font-size:10pt;padding:.14in .18in">Non-compliance is a policy violation and may result in disciplinary action up to and including termination.</div>
+    <p style="font-size:8.5pt;color:#888;margin-top:.2in;text-align:center">Thank you for protecting our guests and upholding our standards.</p>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
 
----
+<!-- ============================================================
+     SIGN 5 — ALLERGEN NOTICE
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-s5" data-group="signs" data-label="Allergens">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>POST AT:</span> Front Counter &amp; Drive-Thru</p><p>Sign 5 of 12 · Guest Safety Series</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Guest Safety — Allergen Disclosure</div>
+    <div class="sign-main-title">Allergen <span class="gold">Notice</span></div>
+    <div class="alert-gold">California AB 2117 &amp; Federal Food Allergen Labeling Law — We are required to disclose major allergens present in our kitchen.</div>
+    <div class="gold-rule"></div>
+    <p style="font-size:10pt;color:#444;margin-bottom:.15in">Our kitchen handles and prepares food with the following major allergens:</p>
+    <div class="three-col" style="margin:.1in 0">
+      <div class="pill-gold" style="text-align:center;padding:.1in">🦐 SHELLFISH</div>
+      <div class="pill-gold" style="text-align:center;padding:.1in">🐟 FISH</div>
+      <div class="pill-gold" style="text-align:center;padding:.1in">🌾 GLUTEN/WHEAT</div>
+      <div class="pill-gold" style="text-align:center;padding:.1in">🥚 EGGS</div>
+      <div class="pill-gold" style="text-align:center;padding:.1in">🥛 DAIRY</div>
+      <div class="pill-gold" style="text-align:center;padding:.1in">🫘 SOY</div>
+    </div>
+    <div class="alert-red" style="margin-top:.15in">Cross-contact between allergens is possible during preparation. We cannot guarantee allergen-free meals.</div>
+    <div class="gold-rule"></div>
+    <div style="font-size:11pt;color:#1a1a1a;font-weight:700;text-align:center;margin:.15in 0">Please inform our team of ANY food allergies<br/>BEFORE placing your order.</div>
+    <p style="font-size:8.5pt;color:#666;text-align:center">Our staff is trained to accommodate allergy requests to the best of our ability. Thank you for your patience.</p>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
 
-## ⚠️ Disclaimer
+<!-- ============================================================
+     SIGN 6 — CLEAN AS YOU GO
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-s6" data-group="signs" data-label="Clean As You Go">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>POST AT:</span> Kitchen — Visible to All Staff</p><p>Sign 6 of 12 · Kitchen Standards Series</p></div>
+  </div>
+  <div class="sign-content" style="padding-top:.35in">
+    <div class="sign-category">Kitchen Standards</div>
+    <div class="sign-main-title">Clean As <span class="gold">You Go</span></div>
+    <div class="gold-rule"></div>
+    <div style="margin:.15in 0">
+      <div style="font-family:'Oswald',sans-serif;font-size:16pt;color:#1a1a1a;padding:.1in 0;border-bottom:1px solid #eee">You made it dirty — <span style="color:#c9a84c">you clean it.</span></div>
+      <div style="font-family:'Oswald',sans-serif;font-size:16pt;color:#1a1a1a;padding:.1in 0;border-bottom:1px solid #eee">You see it dirty — <span style="color:#c9a84c">you clean it.</span></div>
+      <div style="font-family:'Oswald',sans-serif;font-size:16pt;color:#1a1a1a;padding:.1in 0">Not sure? — <span style="color:#c9a84c">Ask your manager.</span></div>
+    </div>
+    <div class="gold-rule"></div>
+    <div class="steps" style="margin:.1in 0">
+      <div class="step"><div class="step-num">→</div><div class="step-text">Spills are mopped <strong>immediately</strong> — no exceptions, no delays.</div></div>
+      <div class="step"><div class="step-num">→</div><div class="step-text">All prep stations are sanitized <strong>every 4 hours</strong> during service.</div></div>
+      <div class="step"><div class="step-num">→</div><div class="step-text">Leave your station <strong>cleaner than you found it</strong> — every shift.</div></div>
+      <div class="step"><div class="step-num">→</div><div class="step-text">Cutting boards sanitized <strong>between each protein type</strong>.</div></div>
+      <div class="step"><div class="step-num">→</div><div class="step-text">Grease and debris removed from grill area <strong>throughout service</strong>.</div></div>
+    </div>
+    <div class="alert-gold">A clean kitchen protects our guests, our team, our health grade, and our reputation as the King of Zarandeado.</div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
 
-This pack is designed as a professional operational tool, 
-but does not replace official legal or regulatory consultation. 
-Always verify compliance with local health authorities.
+<!-- ============================================================
+     SIGN 7 — DRESS CODE
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-s7" data-group="signs" data-label="Dress Code">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>POST AT:</span> Employee Entrance / Break Room</p><p>Sign 7 of 12 · Uniform Policy</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Employee Policy — Dress Code &amp; Uniform Standards</div>
+    <div class="sign-main-title">Employee <span class="gold">Dress Code</span></div>
+    <div class="alert-gold">California Retail Food Code §113969 — Food employees must wear clean outer clothing to prevent contamination.</div>
+    <div class="gold-rule"></div>
+    <div class="two-col">
+      <div>
+        <p style="font-size:9pt;color:#1a7a2a;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.08in">✓ Required</p>
+        <div class="steps">
+          <div class="step"><div class="step-num" style="background:#1a7a2a">✓</div><div class="step-text">Clean Mariscos Los Corchos uniform or approved attire</div></div>
+          <div class="step"><div class="step-num" style="background:#1a7a2a">✓</div><div class="step-text">Hair fully restrained — hat, hairnet, or both for kitchen staff</div></div>
+          <div class="step"><div class="step-num" style="background:#1a7a2a">✓</div><div class="step-text">Apron worn during food prep — removed before restroom</div></div>
+          <div class="step"><div class="step-num" style="background:#1a7a2a">✓</div><div class="step-text">Closed-toe, non-slip shoes at all times</div></div>
+          <div class="step"><div class="step-num" style="background:#1a7a2a">✓</div><div class="step-text">Clean and trimmed fingernails — no nail polish in kitchen</div></div>
+          <div class="step"><div class="step-num" style="background:#1a7a2a">✓</div><div class="step-text">Valid California Food Handler Card — on person at all times</div></div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:9pt;color:#cc2222;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.08in">✗ Not Permitted</p>
+        <div class="steps">
+          <div class="step"><div class="step-num" style="background:#cc2222">✗</div><div class="step-text">Loose jewelry — rings, bracelets, dangling earrings</div></div>
+          <div class="step"><div class="step-num" style="background:#cc2222">✗</div><div class="step-text">False nails, nail extensions, or nail polish in kitchen</div></div>
+          <div class="step"><div class="step-num" style="background:#cc2222">✗</div><div class="step-text">Open-toe shoes, sandals, or flip flops</div></div>
+          <div class="step"><div class="step-num" style="background:#cc2222">✗</div><div class="step-text">Eating, drinking, or chewing gum in food prep areas</div></div>
+          <div class="step"><div class="step-num" style="background:#cc2222">✗</div><div class="step-text">Strong perfume or cologne — may contaminate food</div></div>
+          <div class="step"><div class="step-num" style="background:#cc2222">✗</div><div class="step-text">Aprons worn outside the kitchen or in restrooms</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="alert-red" style="margin-top:.15in">Employees not in compliance with dress code will be asked to correct before starting their shift.</div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     SIGN 8 — NO CELL PHONES
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-s8" data-group="signs" data-label="No Cell Phones">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>POST AT:</span> Kitchen Entrance</p><p>Sign 8 of 12 · Kitchen Policy</p></div>
+  </div>
+  <div class="sign-content" style="padding-top:.4in">
+    <div class="sign-category">Kitchen Policy</div>
+    <div class="sign-main-title large">No Cell Phones<br/>in the <span class="gold">Kitchen</span></div>
+    <div class="gold-rule"></div>
+    <div style="font-size:11pt;color:#333;line-height:1.9;margin:.15in 0">
+      <p>Personal cell phones are <strong>not permitted</strong> in the kitchen or food prep areas during your shift.</p>
+      <p style="margin-top:.1in">Cell phones harbor <strong>bacteria</strong> and create cross-contamination risks when handled alongside food.</p>
+    </div>
+    <div class="alert-gold">Store your phone in your bag, locker, or designated area before entering the kitchen.</div>
+    <div class="two-col" style="margin:.15in 0">
+      <div class="alert-blue"><strong>Exception:</strong> Managers may carry phones for operational use only — no social media or personal calls on the line.</div>
+      <div class="alert-red"><strong>Violation:</strong> Using a phone in the kitchen is a policy violation and may result in disciplinary action.</div>
+    </div>
+    <p style="font-size:8.5pt;color:#888;text-align:center;margin-top:.15in">Breaks and personal calls must be taken in the designated break area only.</p>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     SIGN 9 — SPANISH HANDWASHING
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-sp1" data-group="spanish" data-label="Lavado de Manos">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>COLOCAR EN:</span> Todos los lavamanos</p><p>Señal 9 de 12 · Serie de Seguridad</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Seguridad Alimentaria — Protocolo de Lavado de Manos</div>
+    <div class="big-bilingual">
+      <div class="en">Wash Your Hands</div>
+      <div class="es">Lávate las Manos</div>
+    </div>
+    <div class="alert-gold" style="margin-top:.15in">Código de Salud de California §113953 — El lavado de manos es obligatorio antes de manipular alimentos y después de cualquier contaminación.</div>
+    <div class="gold-rule"></div>
+    <div class="bilingual">
+      <div class="lang-col"><h3>English</h3>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-text"><strong>WET</strong> hands with warm water</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text"><strong>APPLY</strong> soap — scrub 20 seconds</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text"><strong>RINSE</strong> under running water</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-text"><strong>DRY</strong> with paper towel</div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-text"><strong>USE</strong> towel to turn off faucet</div></div>
+        </div>
+      </div>
+      <div class="lang-col"><h3>Español</h3>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-text"><strong>MOJA</strong> las manos con agua tibia</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text"><strong>APLICA</strong> jabón — frota 20 segundos</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text"><strong>ENJUAGA</strong> bajo agua corriente</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-text"><strong>SECA</strong> con toalla desechable</div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-text"><strong>USA</strong> la toalla para cerrar la llave</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="gold-rule"></div>
+    <div class="pills">
+      <span class="pill">Al llegar · On arrival</span><span class="pill">Después del baño · After restroom</span><span class="pill">Después de mariscos crudos · After raw seafood</span>
+      <span class="pill">Después de descansos · After breaks</span><span class="pill">Después de basura · After trash</span>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     SIGN 10 — EMPLOYEES MUST WASH HANDS (CA LEGAL)
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-leg1" data-group="legal" data-label="Employees Must Wash (CA)">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>POST AT:</span> Inside Restroom, Above Sink</p><p>Sign 10 of 12 · CA Legal Compliance</p></div>
+  </div>
+  <div class="sign-content" style="text-align:center;padding-top:.4in">
+    <div class="sign-category" style="text-align:center">California Legal Requirement — Required Posting</div>
+    <div style="font-family:'Oswald',sans-serif;font-size:42pt;font-weight:700;color:#1a1a1a;line-height:1;text-transform:uppercase">
+      Employees<br/>Must <span style="color:#c9a84c">Wash Hands</span>
+    </div>
+    <div style="font-family:'Oswald',sans-serif;font-size:24pt;color:#888;margin:.1in 0;text-transform:uppercase">
+      Los Empleados Deben<br/>Lavarse las Manos
+    </div>
+    <div class="gold-rule"></div>
+    <div style="font-size:12pt;color:#333;margin:.15in 0;line-height:1.7">
+      <strong>Before returning to work.</strong><br/>
+      <span style="color:#888">Antes de regresar al trabajo.</span>
+    </div>
+    <div class="alert-gold" style="text-align:left;font-size:10pt">
+      Required by California Retail Food Code §113953.3 — Operators must post this notice in a conspicuous location in each toilet room used by food employees.
+    </div>
+    <div class="alert-blue" style="text-align:left;margin-top:.1in">
+      Requerido por el Código de Alimentos al por Menor de California §113953.3
+    </div>
+    <p style="font-size:9pt;color:#888;margin-top:.2in">Thank you for protecting our guests · Gracias por proteger a nuestros clientes</p>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     SIGN 11 — CA FOOD HANDLER CARD REQUIRED
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-leg2" data-group="legal" data-label="Food Handler Card (CA)">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>POST AT:</span> Employee Entrance / Break Room</p><p>Sign 11 of 12 · CA Legal Compliance</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">California Legal Requirement — AB 1953 / SB 602</div>
+    <div class="sign-main-title">California Food <span class="gold">Handler Card</span> Required</div>
+    <div class="alert-gold">California SB 602 — All food employees must obtain a valid California Food Handler Card within 30 days of hire. Cards must be renewed every 3 years.</div>
+    <div class="gold-rule"></div>
+    <div class="two-col">
+      <div>
+        <p style="font-size:9pt;font-weight:700;color:#1a1a1a;margin-bottom:.08in;text-transform:uppercase;letter-spacing:1px">What You Need to Know:</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Complete an <strong>accredited food handler course</strong> (online or in-person)</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Pass the food safety exam with <strong>70% or higher</strong></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Receive your card — valid for <strong>3 years</strong></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-text">Keep your <strong>original card</strong> on your person during all shifts</div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-text">Renew <strong>before expiration</strong> — expired cards are not accepted</div></div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:9pt;font-weight:700;color:#1a1a1a;margin-bottom:.08in;text-transform:uppercase;letter-spacing:1px">Approved Providers:</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">→</div><div class="step-text"><strong>StateFoodSafety.com</strong> — Online, ~$15, available in English &amp; Spanish</div></div>
+          <div class="step"><div class="step-num">→</div><div class="step-text"><strong>ServSafe.com</strong> — Online or in-person, ANSI-accredited</div></div>
+          <div class="step"><div class="step-num">→</div><div class="step-text"><strong>eFoodHandlers.com</strong> — Online, low cost, CA-approved</div></div>
+          <div class="step"><div class="step-num">→</div><div class="step-text">Any <strong>ANSI/ASTM-accredited</strong> food handler program</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="alert-red" style="margin-top:.15in">Employees without a valid Food Handler Card may not work food service shifts. This is a California state law requirement.</div>
+    <div class="alert-blue">Questions? See Steve Plasencia — steve.plasencia@mariscosloscorchos.biz · 323-396-0096</div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     SIGN 12 — FIRST AID / EMERGENCY CONTACTS
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-leg3" data-group="legal" data-label="Emergency Contacts">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p><span>POST AT:</span> Kitchen &amp; Break Room</p><p>Sign 12 of 12 · Emergency &amp; Safety</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Emergency &amp; First Aid — Required Posting · Cal/OSHA Compliance</div>
+    <div class="sign-main-title">Emergency <span class="gold">Contacts</span></div>
+    <div class="emergency-grid">
+      <div class="emergency-card red"><h4>🚨 Emergency — Call 911</h4><div class="phone">911</div><p>Fire · Medical emergency · Police · Any life-threatening situation</p></div>
+      <div class="emergency-card red"><h4>🏥 Nearest ER</h4><p><strong>Garfield Medical Center</strong><br/>525 N Garfield Ave, Monterey Park<br/><strong>(626) 573-2222</strong></p></div>
+      <div class="emergency-card"><h4>☠️ Poison Control</h4><div class="phone" style="font-size:12pt;color:#444">(800) 222-1222</div><p>California Poison Control System — 24/7</p></div>
+      <div class="emergency-card"><h4>🔥 Non-Emergency Fire</h4><p>LA County Fire Dept.<br/><strong>(323) 881-2411</strong></p></div>
+    </div>
+    <div class="gold-rule"></div>
+    <p style="font-size:9pt;font-weight:700;color:#1a1a1a;margin-bottom:.08in;text-transform:uppercase;letter-spacing:1px">Management Contacts:</p>
+    <table class="data-table">
+      <tr><th>Name / Role</th><th>Phone</th><th>Email</th></tr>
+      <tr><td><strong>Steve Plasencia</strong> — Owner/Operator</td><td class="gold">323-396-0096</td><td style="font-size:8pt">steve.plasencia@mariscosloscorchos.biz</td></tr>
+      <tr><td>Manager on Duty</td><td>_______________</td><td>_______________</td></tr>
+      <tr><td>Backup Manager</td><td>_______________</td><td>_______________</td></tr>
+    </table>
+    <div class="alert-blue" style="margin-top:.1in">First Aid Kit located: _______________________  · AED located: _______________________</div>
+    <div class="alert-gold">Cal/OSHA requires this notice be posted in a visible location. Report all workplace injuries to management immediately. (Cal/OSHA §3400)</div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     TEMPLATE 1 — DAILY OPENING CHECKLIST
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-t1" data-group="templates" data-label="Opening Checklist">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p>Template T-1 · Daily Use</p><p>Complete before service begins</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Operations Template — Daily Opening Checklist</div>
+    <div class="sign-main-title">Opening <span class="gold">Checklist</span></div>
+    <div class="form-row" style="margin-bottom:.1in">
+      <div class="form-field"><div class="form-label">Date</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Opening Manager</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Shift Start Time</div><div class="form-line"></div></div>
+    </div>
+    <div class="gold-rule"></div>
+    <div class="two-col">
+      <div>
+        <div class="check-section">Food Safety</div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Log walk-in cooler temp (must be ≤41°F)</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Log raw seafood storage temp (must be ≤38°F)</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Check all date labels on stored food</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Discard any food past use-by date</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Verify fry oil is at 350–375°F before first cook</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Test sanitizer solution concentration</div></div>
+        <div class="check-section">Equipment</div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Inspect grill and fire source — functional</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">All cutting boards clean and sanitized</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Prep station surfaces sanitized</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Cold bar stocked and at temp</div></div>
+      </div>
+      <div>
+        <div class="check-section">Supplies</div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Handwashing sinks stocked: soap + paper towels</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Gloves stocked at cold bar and prep stations</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">All signs posted and visible</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">First aid kit fully stocked</div></div>
+        <div class="check-section">Staff</div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">All staff signed in and in uniform</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Food Handler Cards verified for all on shift</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Hair restraints worn by all kitchen staff</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">No jewelry or nail polish on kitchen staff</div></div>
+        <div class="check-section">Cleanliness</div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">All floors swept and mopped</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Trash bins empty and lined</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Restrooms clean and stocked</div></div>
+      </div>
+    </div>
+    <div class="gold-rule"></div>
+    <div class="form-row">
+      <div class="form-field"><div class="form-label">Manager Signature</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Notes / Issues</div><div class="form-line"></div></div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     TEMPLATE 2 — CLOSING CHECKLIST
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-t2" data-group="templates" data-label="Closing Checklist">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p>Template T-2 · Daily Use</p><p>Complete before leaving the premises</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Operations Template — Daily Closing Checklist</div>
+    <div class="sign-main-title">Closing <span class="gold">Checklist</span></div>
+    <div class="form-row" style="margin-bottom:.1in">
+      <div class="form-field"><div class="form-label">Date</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Closing Manager</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Shift End Time</div><div class="form-line"></div></div>
+    </div>
+    <div class="gold-rule"></div>
+    <div class="two-col">
+      <div>
+        <div class="check-section">Food Storage</div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Label and date ALL remaining food items</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Discard food in danger zone 4+ hours</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Log all food waste / discards</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Verify walk-in cooler secured and at temp</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Change fry oil if scheduled</div></div>
+        <div class="check-section">Equipment Cleaning</div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Grill scrubbed and cooled safely</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">All prep stations broken down and sanitized</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Cutting boards sanitized and stored upright</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">All utensils washed, sanitized, stored</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Equipment exteriors wiped down</div></div>
+      </div>
+      <div>
+        <div class="check-section">Cleaning</div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">All floors swept and mopped — including under equipment</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Grease traps checked and cleaned</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Trash bins emptied, sanitized, and relined</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Restrooms cleaned and restocked</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Handwashing stations restocked for AM</div></div>
+        <div class="check-section">Security / Close</div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">All gas lines verified OFF</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">All lights off</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">All doors and windows locked</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Alarm set</div></div>
+        <div class="check-item"><div class="check-box"></div><div class="check-text">Cash handled per closing procedure</div></div>
+      </div>
+    </div>
+    <div class="gold-rule"></div>
+    <div class="form-row">
+      <div class="form-field"><div class="form-label">Manager Signature</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Issues to report to AM manager</div><div class="form-line"></div></div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     TEMPLATE 3 — TEMP LOG
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-t3" data-group="templates" data-label="Temperature Log">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p>Template T-3 · Post near Walk-In Cooler</p><p>Check twice per shift — required by CalCode</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Food Safety Template — Temperature Log</div>
+    <div class="sign-main-title">Temperature <span class="gold">Log</span></div>
+    <div class="form-row" style="margin-bottom:.08in">
+      <div class="form-field"><div class="form-label">Week of</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Location / Unit</div><div class="form-line"></div></div>
+    </div>
+    <div class="alert-gold" style="margin-bottom:.1in">Log temperatures at opening and every 4 hours. Flag any reading in the Danger Zone (41°F–135°F) immediately.</div>
+    <table class="data-table" style="font-size:8pt">
+      <tr>
+        <th style="width:20%">Item</th>
+        <th>Safe Range</th>
+        <th>Mon AM/PM</th>
+        <th>Tue AM/PM</th>
+        <th>Wed AM/PM</th>
+        <th>Thu AM/PM</th>
+        <th>Fri AM/PM</th>
+        <th>Sat AM/PM</th>
+        <th>Sun AM/PM</th>
+      </tr>
+      <tr><td>Walk-in cooler</td><td class="gold">≤41°F</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td></tr>
+      <tr><td>Cold bar</td><td class="gold">≤41°F</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td></tr>
+      <tr><td>Raw seafood</td><td class="gold">≤38°F</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td></tr>
+      <tr><td>Hot hold unit</td><td class="gold">≥135°F</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td></tr>
+      <tr><td>Fry oil</td><td class="gold">350–375°F</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td></tr>
+      <tr><td>Other: ______</td><td>_______</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td><td>__/__</td></tr>
+    </table>
+    <div class="gold-rule"></div>
+    <p style="font-size:8.5pt;font-weight:700;color:#1a1a1a;margin-bottom:.06in;text-transform:uppercase;letter-spacing:1px">Corrective Action Log:</p>
+    <table class="data-table" style="font-size:8pt">
+      <tr><th>Date/Time</th><th>Item</th><th>Temp Recorded</th><th>Action Taken</th><th>Initials</th></tr>
+      <tr><td style="height:.3in"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td style="height:.3in"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td style="height:.3in"></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <div class="form-row" style="margin-top:.1in">
+      <div class="form-field"><div class="form-label">Manager Initials (weekly review)</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Date Reviewed</div><div class="form-line"></div></div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     TEMPLATE 4 — WEEKLY CLEANING SCHEDULE
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-t4" data-group="templates" data-label="Weekly Cleaning">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p>Template T-4 · Post in Kitchen</p><p>Week of: _______________</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Operations Template — Weekly Deep Cleaning Schedule</div>
+    <div class="sign-main-title">Weekly Cleaning <span class="gold">Schedule</span></div>
+    <table class="data-table" style="font-size:8pt">
+      <tr><th>Task</th><th>Daily</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th><th>Assigned To</th></tr>
+      <tr><td>Mop all floors</td><td class="gold">✓</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>____________</td></tr>
+      <tr><td>Sanitize prep surfaces</td><td class="gold">✓</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>____________</td></tr>
+      <tr><td>Empty &amp; sanitize trash bins</td><td class="gold">✓</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>____________</td></tr>
+      <tr><td>Scrub grill grates</td><td class="gold">✓</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>____________</td></tr>
+      <tr><td>Clean restrooms fully</td><td class="gold">✓</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>____________</td></tr>
+      <tr><td>Deep clean walk-in cooler</td><td></td><td>__</td><td></td><td>__</td><td></td><td>__</td><td></td><td>__</td><td>____________</td></tr>
+      <tr><td>Degrease hood &amp; filters</td><td></td><td></td><td></td><td>__</td><td></td><td></td><td>__</td><td></td><td>____________</td></tr>
+      <tr><td>Change fry oil</td><td></td><td></td><td></td><td>__</td><td></td><td></td><td>__</td><td></td><td>____________</td></tr>
+      <tr><td>Wipe shelving units</td><td></td><td>__</td><td></td><td></td><td>__</td><td></td><td></td><td>__</td><td>____________</td></tr>
+      <tr><td>Sanitize door handles</td><td class="gold">✓</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>____________</td></tr>
+      <tr><td>Clean under equipment</td><td></td><td></td><td></td><td></td><td>__</td><td></td><td></td><td>__</td><td>____________</td></tr>
+      <tr><td>Sanitize cold bar trays</td><td class="gold">✓</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>__</td><td>____________</td></tr>
+    </table>
+    <div class="gold-rule"></div>
+    <div class="form-row">
+      <div class="form-field"><div class="form-label">Manager Sign-off</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Date Completed</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Notes</div><div class="form-line"></div></div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     TEMPLATE 5 — STAFF TRAINING LOG
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-t5" data-group="templates" data-label="Staff Training Log">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p>Template T-5 · HR / Training Records</p><p>Keep on file — required for inspections</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">HR Template — Staff Food Safety Training Log</div>
+    <div class="sign-main-title">Staff Training <span class="gold">Log</span></div>
+    <div class="form-row" style="margin-bottom:.08in">
+      <div class="form-field"><div class="form-label">Employee Name</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Hire Date</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Position</div><div class="form-line"></div></div>
+    </div>
+    <div class="form-row" style="margin-bottom:.1in">
+      <div class="form-field"><div class="form-label">Food Handler Card #</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Card Expiration Date</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Issued By (provider)</div><div class="form-line"></div></div>
+    </div>
+    <div class="gold-rule"></div>
+    <table class="data-table" style="font-size:8pt">
+      <tr><th>Training Topic</th><th>Date Completed</th><th>Trainer Initials</th><th>Employee Initials</th><th>Pass / Fail</th></tr>
+      <tr><td>Handwashing procedure &amp; protocol</td><td>____________</td><td>______</td><td>______</td><td>______</td></tr>
+      <tr><td>Glove use and change policy</td><td>____________</td><td>______</td><td>______</td><td>______</td></tr>
+      <tr><td>Food safety temperatures</td><td>____________</td><td>______</td><td>______</td><td>______</td></tr>
+      <tr><td>Cross-contamination prevention</td><td>____________</td><td>______</td><td>______</td><td>______</td></tr>
+      <tr><td>Allergen awareness &amp; disclosure</td><td>____________</td><td>______</td><td>______</td><td>______</td></tr>
+      <tr><td>Dress code &amp; uniform policy</td><td>____________</td><td>______</td><td>______</td><td>______</td></tr>
+      <tr><td>No eating/drinking/cell phones</td><td>____________</td><td>______</td><td>______</td><td>______</td></tr>
+      <tr><td>Clean as you go standards</td><td>____________</td><td>______</td><td>______</td><td>______</td></tr>
+      <tr><td>Emergency / first aid procedures</td><td>____________</td><td>______</td><td>______</td><td>______</td></tr>
+      <tr><td>Opening &amp; closing checklist review</td><td>____________</td><td>______</td><td>______</td><td>______</td></tr>
+      <tr><td>Allergen menu card review</td><td>____________</td><td>______</td><td>______</td><td>______</td></tr>
+      <tr><td>California Food Handler Card verified</td><td>____________</td><td>______</td><td>______</td><td>N/A</td></tr>
+    </table>
+    <div class="gold-rule"></div>
+    <div class="alert-gold" style="margin-bottom:.1in">By signing below, employee confirms they have received, read, and understood all Mariscos Los Corchos food safety and operational policies.</div>
+    <div class="form-row">
+      <div class="form-field"><div class="form-label">Employee Signature</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Manager Signature</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Date</div><div class="form-line"></div></div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     TEMPLATE 6 — CATERING / EVENT ORDER FORM
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-t6" data-group="templates" data-label="Catering Order Form">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p>Template T-6 · Catering &amp; Events</p><p>steve.plasencia@mariscosloscorchos.biz</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Sales Template — Catering &amp; Private Event Order Form</div>
+    <div class="sign-main-title">Catering <span class="gold">Order Form</span></div>
+    <div class="two-col" style="margin-bottom:.1in">
+      <div>
+        <p style="font-size:9pt;font-weight:700;color:#1a1a1a;margin-bottom:.08in;text-transform:uppercase;letter-spacing:1px">Client Information</p>
+        <div class="form-field" style="margin:.06in 0"><div class="form-label">Client Name</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.06in 0"><div class="form-label">Phone</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.06in 0"><div class="form-label">Email</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.06in 0"><div class="form-label">Event Type</div><div class="form-line"></div></div>
+      </div>
+      <div>
+        <p style="font-size:9pt;font-weight:700;color:#1a1a1a;margin-bottom:.08in;text-transform:uppercase;letter-spacing:1px">Event Details</p>
+        <div class="form-field" style="margin:.06in 0"><div class="form-label">Event Date</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.06in 0"><div class="form-label">Event Time</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.06in 0"><div class="form-label">Guest Count</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.06in 0"><div class="form-label">Event Location / Address</div><div class="form-line"></div></div>
+      </div>
+    </div>
+    <div class="gold-rule"></div>
+    <p style="font-size:9pt;font-weight:700;color:#1a1a1a;margin-bottom:.08in;text-transform:uppercase;letter-spacing:1px">Menu Selection</p>
+    <table class="data-table" style="font-size:8pt">
+      <tr><th>Menu Item</th><th>Qty / Servings</th><th>Unit Price</th><th>Total</th><th>Notes / Mods</th></tr>
+      <tr><td>Pescado Zarandeado (whole fish)</td><td>______</td><td>$______</td><td>$______</td><td>____________</td></tr>
+      <tr><td>Camarones Zarandeados</td><td>______</td><td>$______</td><td>$______</td><td>____________</td></tr>
+      <tr><td>Pulpo Zarandeado</td><td>______</td><td>$______</td><td>$______</td><td>____________</td></tr>
+      <tr><td>Ceviche (type: _______)</td><td>______</td><td>$______</td><td>$______</td><td>____________</td></tr>
+      <tr><td>Aguachile</td><td>______</td><td>$______</td><td>$______</td><td>____________</td></tr>
+      <tr><td>Tortillas (corn / flour)</td><td>______</td><td>$______</td><td>$______</td><td>____________</td></tr>
+      <tr><td>Salsas / Condimentos</td><td>______</td><td>$______</td><td>$______</td><td>____________</td></tr>
+      <tr><td>Custom item: ___________</td><td>______</td><td>$______</td><td>$______</td><td>____________</td></tr>
+    </table>
+    <div class="form-row" style="margin-top:.1in">
+      <div class="form-field"><div class="form-label">Subtotal</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Service / Staffing Fee</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Tax (10.25% LA County)</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label"><strong>TOTAL</strong></div><div class="form-line"></div></div>
+    </div>
+    <div class="gold-rule"></div>
+    <div class="form-row">
+      <div class="form-field"><div class="form-label">Deposit Paid</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Balance Due</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Balance Due Date</div><div class="form-line"></div></div>
+    </div>
+    <div class="alert-gold" style="margin-top:.1in;font-size:8pt">A 50% deposit is required to confirm all catering bookings. Balance due 48 hours before event. Contact: 323-396-0096 · steve.plasencia@mariscosloscorchos.biz</div>
+    <div class="form-row" style="margin-top:.08in">
+      <div class="form-field"><div class="form-label">Client Signature</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Los Corchos Rep</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Date</div><div class="form-line"></div></div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     BONUS — ALLERGEN MENU CARD
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-b1" data-group="bonus" data-label="Allergen Menu Card">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p>Bonus B-1 · Guest-Facing Document</p><p>Keep at front counter &amp; drive-thru</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Guest Safety — Full Allergen Menu Reference Card</div>
+    <div class="sign-main-title">Allergen <span class="gold">Menu Card</span></div>
+    <div class="alert-gold">Our kitchen handles shellfish, fish, gluten, eggs, dairy, and soy. Cross-contact is possible. Always inform staff of allergies before ordering.</div>
+    <div class="gold-rule"></div>
+    <table class="data-table" style="font-size:8pt">
+      <tr><th>Menu Item</th><th>🦐 Shellfish</th><th>🐟 Fish</th><th>🌾 Gluten</th><th>🥚 Egg</th><th>🥛 Dairy</th><th>🫘 Soy</th><th>Notes</th></tr>
+      <tr><td>Pescado Zarandeado</td><td></td><td class="red">●</td><td class="gold">●</td><td></td><td></td><td class="gold">●</td><td>Ask about marinade</td></tr>
+      <tr><td>Camarones Zarandeados</td><td class="red">●</td><td></td><td class="gold">●</td><td></td><td></td><td class="gold">●</td><td>Ask about marinade</td></tr>
+      <tr><td>Pulpo Zarandeado</td><td class="red">●</td><td></td><td class="gold">●</td><td></td><td></td><td class="gold">●</td><td></td></tr>
+      <tr><td>Ceviche de Pescado</td><td></td><td class="red">●</td><td></td><td></td><td></td><td></td><td>Citrus-marinated</td></tr>
+      <tr><td>Ceviche de Camaron</td><td class="red">●</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>Aguachile Verde</td><td class="red">●</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>Tortillas de Maíz</td><td></td><td></td><td></td><td></td><td></td><td></td><td>GF — dedicated prep</td></tr>
+      <tr><td>Tortillas de Harina</td><td></td><td></td><td class="red">●</td><td class="gold">●</td><td class="gold">●</td><td></td><td>Contains wheat</td></tr>
+      <tr><td>Arroz</td><td></td><td></td><td></td><td></td><td></td><td class="gold">●</td><td>Ask staff</td></tr>
+      <tr><td>Frijoles</td><td></td><td></td><td></td><td></td><td class="gold">●</td><td></td><td>May contain lard</td></tr>
+    </table>
+    <div class="thin-rule"></div>
+    <p style="font-size:7.5pt;color:#666;margin-top:.08in"><strong style="color:#cc2222">●</strong> = Contains this allergen &nbsp;|&nbsp; <strong style="color:#c9a84c">●</strong> = May contain (cross-contact possible) &nbsp;|&nbsp; Blank = Not a primary ingredient</p>
+    <div class="alert-red" style="margin-top:.1in">This card is a reference guide only. Ingredients and preparation methods may change. Always confirm with staff at time of order. We cannot guarantee allergen-free preparation.</div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+<!-- ============================================================
+     BONUS — FOOD SAFETY INCIDENT REPORT
+     ============================================================ -->
+<div class="page-shadow"><div class="page" id="p-b2" data-group="bonus" data-label="Incident Report">
+  <div class="brand-header">
+    <div class="brand-header-left">
+      <div class="brand-logo-circle"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="8" stroke="#c9a84c" stroke-width="2"/><path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#c9a84c" stroke-width="2"/></svg></div>
+      <div class="brand-text"><h1>Mariscos Los Corchos</h1><p>El Rey del Zarandeado · East Los Angeles · Nayarit Style</p></div>
+    </div>
+    <div class="brand-header-right"><p>Bonus B-2 · Incident Documentation</p><p>Complete immediately — keep on file</p></div>
+  </div>
+  <div class="sign-content">
+    <div class="sign-category">Compliance Template — Food Safety &amp; Workplace Incident Report</div>
+    <div class="sign-main-title">Incident <span class="gold">Report</span></div>
+    <div class="alert-red">Complete this form immediately for any food safety incident, guest complaint, employee injury, or health code concern. File with Steve Plasencia within 24 hours.</div>
+    <div class="gold-rule"></div>
+    <div class="two-col">
+      <div>
+        <div class="form-field" style="margin:.08in 0"><div class="form-label">Date of Incident</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.08in 0"><div class="form-label">Time of Incident</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.08in 0"><div class="form-label">Location in Restaurant</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.08in 0"><div class="form-label">Manager on Duty</div><div class="form-line"></div></div>
+      </div>
+      <div>
+        <div class="form-field" style="margin:.08in 0"><div class="form-label">Staff Member(s) Involved</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.08in 0"><div class="form-label">Guest Involved? (Y/N)</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.08in 0"><div class="form-label">Guest Contact Info (if applicable)</div><div class="form-line"></div></div>
+        <div class="form-field" style="margin:.08in 0"><div class="form-label">Incident Type</div><div class="form-line"></div></div>
+      </div>
+    </div>
+    <div class="thin-rule"></div>
+    <div class="form-field" style="margin:.08in 0"><div class="form-label">Full Description of Incident</div><div class="form-box" style="height:.6in"></div></div>
+    <div class="form-field" style="margin:.08in 0"><div class="form-label">Immediate Corrective Action Taken</div><div class="form-box" style="height:.5in"></div></div>
+    <div class="two-col">
+      <div class="form-field" style="margin:.08in 0"><div class="form-label">Was food discarded? (Y/N)</div><div class="form-line"></div></div>
+      <div class="form-field" style="margin:.08in 0"><div class="form-label">Amount / Items Discarded</div><div class="form-line"></div></div>
+    </div>
+    <div class="two-col">
+      <div class="form-field" style="margin:.08in 0"><div class="form-label">Was 911 or CDPH contacted? (Y/N)</div><div class="form-line"></div></div>
+      <div class="form-field" style="margin:.08in 0"><div class="form-label">Follow-up Required? Due Date</div><div class="form-line"></div></div>
+    </div>
+    <div class="gold-rule"></div>
+    <div class="form-row">
+      <div class="form-field"><div class="form-label">Manager Signature</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Steve Plasencia Review</div><div class="form-line"></div></div>
+      <div class="form-field"><div class="form-label">Date Filed</div><div class="form-line"></div></div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <span class="left">🌴 MARISCOS LOS CORCHOS</span>
+    <span class="mid">5328 E Beverly Blvd · East Los Angeles, CA 90022 · 323-396-0096</span>
+    <span class="right">L.A. Grub Plug · mariscosloscorchos.biz</span>
+  </div>
+</div></div>
+
+</div><!-- end viewer -->
+
+<script>
+const pages = document.querySelectorAll('.page');
+const tabsEl = document.getElementById('tabs');
+
+function buildTabs(){
+  tabsEl.innerHTML = '';
+  const vis = [...pages].filter(p => p.style.display !== 'none' || p.classList.contains('visible') || true);
+  pages.forEach((p,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab';
+    btn.textContent = p.dataset.label;
+    if(p.classList.contains('visible')) btn.classList.add('active');
+    btn.onclick = ()=>{ showPage(p); buildTabs(); };
+    tabsEl.appendChild(btn);
+  });
+}
+
+function showPage(target){
+  pages.forEach(p=>p.classList.remove('visible'));
+  target.classList.add('visible');
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    t.classList.toggle('active', [...pages][i] === target);
+  });
+}
+
+function showGroup(g){
+  const filtered = [...pages].filter(p=>p.dataset.group===g);
+  if(filtered.length) showPage(filtered[0]);
+  tabsEl.innerHTML = '';
+  filtered.forEach(p=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab';
+    btn.textContent = p.dataset.label;
+    if(p.classList.contains('visible')) btn.classList.add('active');
+    btn.onclick = ()=>{ showPage(p); filtered.forEach(b=>b); buildGroupTabs(filtered,p); };
+    tabsEl.appendChild(btn);
+  });
+}
+
+function buildGroupTabs(list, active){
+  tabsEl.innerHTML='';
+  list.forEach(p=>{
+    const btn=document.createElement('button');
+    btn.className='tab'+(p===active?' active':'');
+    btn.textContent=p.dataset.label;
+    btn.onclick=()=>{showPage(p);buildGroupTabs(list,p);};
+    tabsEl.appendChild(btn);
+  });
+}
+
+buildTabs();
+</script>
+</body>
+</html>
